@@ -3,54 +3,50 @@ Definition of views.
 """
 
 from datetime import datetime
-from django.shortcuts import render
-from django.http import HttpRequest
+from django.shortcuts import get_object_or_404, render, redirect
+from django.http import HttpRequest, HttpResponse
+from django.views.generic.list import ListView 
+
+# relative import of forms 
+from .models import Products 
 
 
-def list_view(request): 
-    # dictionary for initial data with  
-    # field names as keys 
-    context ={} 
+from django.contrib import admin
+admin.site.register(Products)
+
+
   
-    # add the dictionary during initialization 
-    context["dataset"] = GeeksModel.objects.all() 
-          
-    return render(request, "list_view.html", context) 
+class ProductsList(ListView): 
+  
+    # specify the model for list view 
+    model = Products    
 
-def home(request):
-    """Renders the home page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/index.html',
-        {
-            'title':'Home Page',
-            'year':datetime.now().year,
-        }
-    )
+def render_items(request, item_name):
+    item = get_object_or_404(Products, product_name=item_name)
+    return render(request, 'app/TEMPLATE.html', {'item': item })
 
-def contact(request):
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/contact.html',
-        {
-            'title':'Contact',
-            'message':'Your contact page.',
-            'year':datetime.now().year,
-        }
-    )
+def add_to_cart_go_to_cart(request, item_name):
+    item = get_object_or_404(Products, product_name=item_name)
+    request.session['cart'] = True
+    request.session[str(item.id)] = item.product_name
+    if str(item.id)+"q" in request.session.keys():
+        request.session[str(item.id)+"q"] += 1
+    else:
+        request.session[str(item.id)+"q"] = 1
+    return redirect('viewcart')
 
-def about(request):
-    """Renders the about page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/about.html',
-        {
-            'title':'About',
-            'message':'Your application description page.',
-            'year':datetime.now().year,
-        }
-    )
+def view_cart(request):
+    if request.session['cart'] == True:
+        InsideCart = dict()
+        InsideCartQuantity = dict()
+        InsideCartPrice = dict()
+        string = ""
+        keys = request.session.keys()
+        for k in keys:
+            if k.isdigit() == True:
+                item = get_object_or_404(Products, id=k)
+                InsideCart[k] = item.product_name
+                InsideCartQuantity[k] = request.session[k+"q"]
+                InsideCartPrice[k] = item.price_grosze
+                string += InsideCart[k] + " " + InsideCartQuantity[k] + " " + InsideCartPrice[k] + " "
+        return HttpResponse(string)

@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
-<html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand">Sklep</a>
+                <a href="/" class="navbar-brand">Application name</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -29,9 +30,17 @@
             </div>
         </div>
     </div>
-
-
-
-
+    <div class="row">
+        <div class="mx-auto w-50 p-3 text-center">
+        <ul class="list-group  mx-auto justify-content-center">
+            {% for object in object_list %}
+            <li class="list-group-item"><a href=items/{{ object.product_name }}>{{ object.product_name }}</a></li>
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
 </body>
 </html>
+
+
+    

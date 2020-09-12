@@ -7,12 +7,10 @@ from django.urls import path
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from app import forms, views
+from app.views import ProductsList
 
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('contact/', views.contact, name='contact'),
-    path('about/', views.about, name='about'),
     path('login/',
          LoginView.as_view
          (
@@ -26,5 +24,9 @@ urlpatterns = [
          ),
          name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('', ProductsList.as_view(), name='home'), 
     path('admin/', admin.site.urls),
+    path('items/<str:item_name>/',views.render_items, name='item'),
+    path('items/<str:item_name>/cart',views.add_to_cart_go_to_cart, name='cart'),
+    path('cart/',views.view_cart, name='viewcart'),
 ]

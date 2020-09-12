@@ -30,8 +30,24 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col">
+            <div class="mx-auto w-50 p-3 bg-dark text-white text-center">
+                <h1> {{ item.product_name }} </h1>
+                <p>
+                    Cena: <span id="myText"></span> zł
+                    <script>
+                        var x = {{ item.price_grosze }}/100
+                        x = x.toFixed(2)
+                        document.getElementById("myText").innerHTML = x;
+                    </script>
+                </p>
+                <p>{{ item.product_description }}</p>
+                <p> Dostępne: {{ item.how_many_in_storage }} </p>
+                <a href="cart" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"> Dodaj Do Koszyka </a>
 
-
-
+</div>
+        </div>
+    </div>
 </body>
 </html>

@@ -8,6 +8,7 @@ class Products(models.Model):
     product_name = models.CharField(max_length=30)
     product_description = models.CharField(max_length=200)
     how_many_in_storage = models.IntegerField()
+    price_grosze = models.IntegerField()
 
     def __str__(self): 
         return self.product_name 
