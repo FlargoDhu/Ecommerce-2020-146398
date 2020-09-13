@@ -72,7 +72,7 @@ def order(request):
 
         obj = Orders.objects.latest('id')
         order = Orders.objects.create(
-            req_title = str(obj)+"543",
+            req_title = str(obj.id)+"543",
             price_grosze = total,
             product_container = dumps(InsideCart),
             product_ammounts = dumps(InsideCartQuantity),

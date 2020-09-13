@@ -1,0 +1,14 @@
+Lista Produktów na stronie głównej powstaje przy wykorzystaniu listy i wczytaniu wszystkich obiektów Products i przekazania go za pomocą skrótów Django do template.
+
+Koszyk istnieje w sesji użytkownika, sesja działą za pomocą Django i zapisuje się w cache przeglądarki. Id produktu jest kluczem pod którym zapisuje się nazwa produktu, string(id)+"q" to klucz pod którym zapisuje się ilość danego produktu w koszyku. Cena jest podliczana poprzez sume wszystkich produktów.
+
+Zamówienie jest wytwarzane z sesji i zapisywane w modelu Orders. Zawiera pola Json, w których zawarte jest zamówienie, i pola z całkowitym kosztem zamówienia oraz wymaganym tytułem do przelewu. Tytuł przelewu to id ostatniego Orders + "543".
+
+Strona produktu wytwarzana jest na podstawie wyszukania w bazie danych danego produktu i uzupełnienia pól z danymi o produkcie.
+
+W wyglądzie strony wykorzystany jest wbudowany bootstrap django oraz twitter bootstrap.
+
+1.Użytkownik logując się do serwisu zawita do strony głównej z listą produktów.
+2.Klikając na produkt zostaje przeniesiony na strone produktu, gdzie będzie miał opcje dodania do koszyka.
+3.Po dodaniu do koszyka zostanie przeniesiony na widok koszyka, gdzie może złożyć zamówienie, albo wrócić do strony głównej i dodać do koszyka inny produkt.
+4.Po złożeniu zamówienia, użytkownik zostanie przeniesony do strony z danymi do przelewu i informacją o całym zamówieniu.
