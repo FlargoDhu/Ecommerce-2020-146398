@@ -6,6 +6,7 @@ from datetime import datetime
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.views.generic.list import ListView 
+from json import dumps 
 
 # relative import of forms 
 from .models import Products 
@@ -48,5 +49,8 @@ def view_cart(request):
                 InsideCart[k] = item.product_name
                 InsideCartQuantity[k] = request.session[k+"q"]
                 InsideCartPrice[k] = item.price_grosze
-                string += InsideCart[k] + " " + InsideCartQuantity[k] + " " + InsideCartPrice[k] + " "
-        return HttpResponse(string)
+                string += InsideCart[k] + " " + str(InsideCartQuantity[k]) + " " + str(InsideCartPrice[k]) + " "
+        InsideCart = dumps(InsideCart)
+        InsideCartQuantity = dumps(InsideCartQuantity)
+        InsideCartPrice = dumps(InsideCartPrice)
+        return render(request, 'app/TEMPLATE_CART_VIEW.html', {'InsideCart': InsideCart, 'InsideCartQuantity': InsideCartQuantity, 'InsideCartPrice': InsideCartPrice })
