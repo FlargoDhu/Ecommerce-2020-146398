@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\templates\app\products_list.html" />
+    <Content Include="app\templates\app\ORDER_TEMPLATE.html" />
     <Content Include="app\templates\app\TEMPLATE_CART_VIEW.html" />
     <Content Include="app\templates\app\TEMPLATE.html" />
     <Content Include="requirements.txt" />

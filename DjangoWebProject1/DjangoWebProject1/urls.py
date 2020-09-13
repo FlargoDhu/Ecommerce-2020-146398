@@ -29,4 +29,5 @@ urlpatterns = [
     path('items/<str:item_name>/',views.render_items, name='item'),
     path('items/<str:item_name>/cart',views.add_to_cart_go_to_cart, name='cart'),
     path('cart/',views.view_cart, name='viewcart'),
+    path('cart/order', views.order, name='order')
 ]

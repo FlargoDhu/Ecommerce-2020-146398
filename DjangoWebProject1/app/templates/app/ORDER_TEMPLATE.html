@@ -33,24 +33,40 @@
     <div class="row">
         <div class="col">
             <div class="mx-auto w-50 p-3 bg-dark text-white text-center">
+                <h1> Zamówienie </h1>
+                <p>
+                    Pełen Koszt: <span id="myText"></span> zł
+                    <script>
+                        var x = {{ order.price_grosze }}/100
+                        x = x.toFixed(2)
+                        document.getElementById("myText").innerHTML = x;
+                    </script>
+                </p>
+                <p> Tutuł Przelewu: {{order.req_title}}</p>
+                <p> Numer Konta: MC269138034277L2C0874961O66</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="mx-auto w-50 p-3 bg-dark text-white text-center">
 
             <h2> 
-                <u>Koszyk</u> 
+                <u>Produkty</u> 
             </h2> 
             <h4 id='alldata'></h4><br> 
             <h5 id='price'></h5>
-            <a href="order" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"> Utwórz Zamówienie </a>
             </div>
         </div>
     </div>
 </body>
 </html>
 <script> 
-    var InsideCart = JSON.parse("{{InsideCart|escapejs}}"); 
+    var InsideCart = JSON.parse("{{order.product_container|escapejs}}"); 
     
-    var InsideCartQuantity = JSON.parse("{{InsideCartQuantity|escapejs}}"); 
+    var InsideCartQuantity = JSON.parse("{{order.product_ammounts|escapejs}}"); 
 
-    var InsideCartPrice = JSON.parse("{{InsideCartPrice|escapejs}}"); 
+    var InsideCartPrice = JSON.parse("{{order.product_prices|escapejs}}"); 
  
     dataNode = document.getElementById('alldata');
     var totall = 0;
